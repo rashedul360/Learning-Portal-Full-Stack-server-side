@@ -3,7 +3,6 @@ const {
  getAllCourses,
  updateCourse,
  deleteCourse,
- deleteModule,
 } = require("../../controler/multiCourseController/multiCourseControllers");
 const { verifyUser } = require("../../middlewares/userVerification");
 const verifyIsAdmin = require("../../middlewares/verifyIsAdmin");
