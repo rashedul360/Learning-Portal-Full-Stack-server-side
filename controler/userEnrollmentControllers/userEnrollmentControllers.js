@@ -2,19 +2,15 @@ const { v4: uuidv4 } = require("uuid");
 const userEnrolledCourse = require("../../model/user_Course_enrollment");
 //=======================find all enrolled courses (admin can see that)====================================
 const getAllEnrolledCourses = (_req, res, next) => {
- userEnrolledCourse
-  .find()
-  .then((enrollments) =>
-   enrollments !== null
-    ? res
-       .status(200)
-       .json({
-        message: `enrollment found ${enrollments.length}`,
-        enrollments,
-        status: 200,
-       })
-    : res.status(404).json({ message: "enrollments not found", status: 404 })
-  );
+ userEnrolledCourse.find().then((enrollments) =>
+  enrollments !== null
+   ? res.status(200).json({
+      message: `enrollment found ${enrollments.length}`,
+      enrollments,
+      status: 200,
+     })
+   : res.status(404).json({ message: "enrollments not found", status: 404 })
+ );
 };
 //=======================find student enrolled courses (student can see that)====================================
 const getEnrolledCourses = (req, res, next) => {
@@ -72,8 +68,15 @@ const addEnrollmentCourse = (req, res, next) => {
   }
  });
 };
+const deleteEnrollment = (args) => {
+ userEnrolledCourse
+  .deleteOne({ course_id: args })
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err));
+};
 module.exports = {
  getAllEnrolledCourses,
  getEnrolledCourses,
  addEnrollmentCourse,
+ deleteEnrollment,
 };

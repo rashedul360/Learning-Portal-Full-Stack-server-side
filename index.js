@@ -16,6 +16,7 @@ const assignmentMarksRoute = require("./routes/assignmentMark/assignmentMarksRou
 const promoCodeRouter = require("./routes/promose_code/promo_code_routes");
 const courseModuleRoute = require("./routes/course_module/courseModuleRoutes");
 const enrollmentRoute = require("./routes/enrollmentCourses/enrollmentCoursesRoute");
+const expireTokenVerification = require("./middlewares/ExpiredTokenVerification");
 
 //=============================//constant variables//===============================================
 const PORT = process.env.PORT || 8080;
@@ -31,17 +32,17 @@ app.use(morgan("dev"));
 //==============================//user router//==============================
 app.use("/api/v1", userRouter);
 ////==============================//MULTI courses//==============================
-app.use("/api/v1", multiCourseRouter);
+app.use("/api/v1", expireTokenVerification, multiCourseRouter);
 ////==============================//assignments//==============================
-app.use("/api/v1", assignmentRoute);
+app.use("/api/v1", expireTokenVerification, assignmentRoute);
 ////==============================//assignment marks//==============================
-app.use("/api/v1", assignmentMarksRoute);
+app.use("/api/v1", expireTokenVerification, assignmentMarksRoute);
 ////==============================//promo code//==============================
-app.use("/api/v1", promoCodeRouter);
+app.use("/api/v1", expireTokenVerification, promoCodeRouter);
 ////==============================//course module//==============================
-app.use("/api/v1", courseModuleRoute);
+app.use("/api/v1", expireTokenVerification, courseModuleRoute);
 ////==============================//enrollment module//==============================
-app.use("/api/v1", enrollmentRoute);
+app.use("/api/v1", expireTokenVerification, enrollmentRoute);
 
 // static routes
 app.get("/health", healthController);

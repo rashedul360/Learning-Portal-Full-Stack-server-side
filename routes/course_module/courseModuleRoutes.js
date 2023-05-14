@@ -4,6 +4,7 @@ const {
  addCourseModule,
  updateCourseModule,
  deleteCourseModule,
+ deleteCourseModules,
 } = require("../../controler/course_module_controllers/courseModuleControllers");
 const { verifyUser } = require("../../middlewares/userVerification");
 const verifyIsAdmin = require("../../middlewares/verifyIsAdmin");
@@ -31,4 +32,5 @@ courseModuleRoute.delete(
  verifyIsAdmin,
  deleteCourseModule
 );
+
 module.exports = courseModuleRoute;

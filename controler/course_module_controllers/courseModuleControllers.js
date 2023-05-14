@@ -50,10 +50,14 @@ const addCourseModule = (req, res, next) => {
 };
 const updateCourseModule = () => {};
 const deleteCourseModule = () => {};
+const deleteCourseModules = (course_id) => {
+ courseModule.deleteMany({ course_id }).then((data) => console.log(data));
+};
 module.exports = {
  getAllCourseModules,
  getSingleCourseModules,
  addCourseModule,
  updateCourseModule,
  deleteCourseModule,
+ deleteCourseModules,
 };

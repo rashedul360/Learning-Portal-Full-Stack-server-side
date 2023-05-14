@@ -1,5 +1,12 @@
+const courseModule = require("../../model/course_module_model");
 const multiCourse = require("../../model/mulltiCourseModel");
 const { v4: uuidv4 } = require("uuid");
+const {
+ deleteEnrollment,
+} = require("../userEnrollmentControllers/userEnrollmentControllers");
+const {
+ deleteCourseModules,
+} = require("../course_module_controllers/courseModuleControllers");
 ///-=====================get=====================
 const getAllCourses = (_req, res, next) => {
  multiCourse.find().then((data) => res.status(200).json(data));
@@ -44,8 +51,11 @@ const updateCourse = (req, res) => {
 ///-=====================delete course=====================
 const deleteCourse = (req, res) => {
  const { course_id } = req.body;
+
  multiCourse
   .findOneAndDelete({ course_id })
+  .then(deleteEnrollment(course_id))
+  .then(deleteCourseModules(course_id))
   .then((data) =>
    data !== null
     ? res.status(200).json(data)
