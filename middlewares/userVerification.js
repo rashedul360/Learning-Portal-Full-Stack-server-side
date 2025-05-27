@@ -7,7 +7,7 @@ const verifyUser = (req, res, next) => {
  // decode jwt token
  jwt.verify(splittedToken, "shhhhh", function (err, decoded) {
   let { email, id, name } = decoded?.userData || {};
-  console.log(req.headers.origin);
+  
   user?.findOne({ email }).then((data) => {
    // checking is this user registered?
    if (
@@ -17,6 +17,7 @@ const verifyUser = (req, res, next) => {
     !err
      && req.headers.origin === process.env.ORIGIN
    ) {
+   console.log( `user requested from ${req.headers.origin} || log from user verification`);
     return next();
    }
    // send unauthorized message
