@@ -8,6 +8,7 @@ const getAssignments = (_req, res) => {
 
 const getSingleAssignment = (req, res, next) => {
  const { video_id } = req.params; // filter must be a object
+console.log(video_id);
  assignment
   .findOne({ video_id })
   .then((data) => {
