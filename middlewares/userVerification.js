@@ -15,7 +15,7 @@ const verifyUser = (req, res, next) => {
     data?.id === id &&
     data?.name === name &&
     !err
-    // && req.headers.origin === process.env.ORIGIN
+     && req.headers.origin === process.env.ORIGIN
    ) {
     return next();
    }
